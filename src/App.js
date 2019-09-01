@@ -1,26 +1,110 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Form from "../src/components/form";
+import Dashboard from "../src/components/dashboard";
+import Column from "../src/components/Column";
+import Donut from "../src/components/Donut";
+import Graph from "../src/components/graph";
+import ReactApexChart from "react-apexcharts";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state2 = {
+      options: {},
+      series: [44, 55, 41, 17, 15],
+      labels: ["A", "B", "C", "D", "E"]
+    };
+
+    this.state = {
+      options: {
+        chart: {
+          id: "basic-bar"
+        },
+        xaxis: {
+          categories: []
+        }
+      },
+      series: [
+        {
+          name: "series-1",
+          data: [0]
+        }
+      ],
+      num: 0,
+      inputText: ""
+    };
+  }
+
+  onIncrement = () => {
+    const state_copy = Object.assign({}, this.state);
+    state_copy.series["0"]["data"].push(parseInt(this.state.inputText));
+    this.setState({ inputText: "" });
+    this.setState({
+      series: state_copy.series
+    });
+    let val = this.state.num + 1;
+    this.setState({ num: val });
+  };
+
+  onChangeOption = val => {
+    console.log("onChangeOption ", val);
+    const state_copy = Object.assign({}, this.state.options);
+    state_copy.xaxis.categories.push(val);
+    this.setState({
+      options: state_copy
+    });
+  };
+  onChangeSeries = val => {
+    console.log("onChangeSeries ", val);
+    const state_copy = [...this.state.series];
+    state_copy[0]["data"].push(parseInt(val));
+    this.setState({
+      series: state_copy
+    });
+  };
+
+  changeNum = () => {
+    this.setState({
+      num: 1
+    });
+  };
+
+  pushDashboard() {
+    // console.log(this);
+    console.log("pushDashboard", this.state.num);
+    if (this.state.num == 0) return "";
+    else {
+      console.log("dashboard rendered");
+      return <Dashboard value={this.state} />;
+    }
+  }
+
+  render() {
+    console.log("render app.js", this.state);
+    return (
+      <div className="app">
+        <div className="row">
+          <Form
+            option={this.state.options}
+            series={this.state.series}
+            onChangeOption={this.onChangeOption}
+            onChangeSeries={this.onChangeSeries}
+            changeNum={this.changeNum}
+          />
+          {this.pushDashboard()}
+          {/* <Column values={this.state} /> */}
+
+          {/* <ReactApexChart
+            options={this.state.options}
+            series={this.state.series}
+            type="line"
+            width="500"
+          /> */}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
