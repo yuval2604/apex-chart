@@ -5,7 +5,6 @@ import Dashboard from "../src/components/dashboard";
 import Column from "../src/components/Column";
 import Donut from "../src/components/Donut";
 import Graph from "../src/components/graph";
-import ReactApexChart from "react-apexcharts";
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class App extends Component {
       series: [
         {
           name: "series-1",
-          data: [0]
+          data: []
         }
       ],
       num: 0,
@@ -76,7 +75,7 @@ class App extends Component {
     if (this.state.num == 0) return "";
     else {
       console.log("dashboard rendered");
-      return <Dashboard value={this.state} />;
+      return <Dashboard value={this.state} value2={this.state2} />;
     }
   }
 
@@ -84,7 +83,7 @@ class App extends Component {
     console.log("render app.js", this.state);
     return (
       <div className="app">
-        <div className="row">
+        <div className="container">
           <Form
             option={this.state.options}
             series={this.state.series}
@@ -93,6 +92,7 @@ class App extends Component {
             changeNum={this.changeNum}
           />
           {this.pushDashboard()}
+
           {/* <Column values={this.state} /> */}
 
           {/* <ReactApexChart

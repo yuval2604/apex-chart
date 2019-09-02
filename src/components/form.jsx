@@ -43,7 +43,7 @@ class form extends Component {
           className="btn btn-success"
           onClick={() => this.props.changeNum()}
         >
-          Success
+          show charts
         </button>
       </div>
     );

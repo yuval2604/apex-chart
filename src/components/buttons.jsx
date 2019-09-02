@@ -30,7 +30,7 @@ class buttons extends Component {
           className="btn btn-primary"
           onClick={this.handleSubmit}
         >
-          Primary
+          add
         </button>
       </div>
     );

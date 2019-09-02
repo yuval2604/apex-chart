@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import Chart from "react-apexcharts";
 
 class Donut extends Component {
-  state = {};
+  state = {
+    option: this.props.option,
+    series: this.props.series
+  };
   render() {
-    const vals = this.props.values;
+    const option = this.props.option;
+    const series = this.props.series;
     return (
       <div className="donut">
         <Chart
-          options={vals.options}
-          series={vals.series}
+          options={this.state.option}
+          series={this.state.series}
           type="donut"
           width="380"
         />
