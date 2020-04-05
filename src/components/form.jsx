@@ -9,16 +9,17 @@ class form extends Component {
     parameters: [],
     Category: [],
     CategoryInput: "",
-    ParamsInput: ""
+    ParamsInput: "",
   };
 
-  handleSubmitCat = val => {
+  handleSubmitCat = (val) => {
     const CategoryInputCopy = [...this.state.Category];
     CategoryInputCopy.push(val);
     this.setState({ Category: CategoryInputCopy });
+    console.log("handleSubmitCat", this.state);
     this.props.onChangeOption(val);
   };
-  handleSubmitPar = val => {
+  handleSubmitPar = (val) => {
     const ParamsInputCopy = [...this.state.parameters];
     ParamsInputCopy.push(val);
     this.setState({ parameters: ParamsInputCopy });
